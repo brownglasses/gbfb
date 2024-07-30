@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "241295335602",
+    "project_id": "gfbf-5356d",
+    "storage_bucket": "gfbf-5356d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241295335602:android:a62af8dc3474e4552669ab",
+        "android_client_info": {
+          "package_name": "com.example.gfbf"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBApvFyGCAjl6F4QrF2DaoZUiwC17WyYB4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
