@@ -8,6 +8,7 @@ import 'package:gfbf/models/profile_model.dart';
 import 'package:gfbf/models/user_model.dart';
 import 'package:gfbf/notifier/profile_notifier.dart';
 import 'package:gfbf/state/profile_create_state.dart';
+import 'package:gfbf/state/profile_edit_state.dart';
 
 import 'package:gfbf/state/profile_view_state.dart';
 import 'package:gfbf/state/university_verification_state.dart';
@@ -140,10 +141,10 @@ final editProfileUseCaseProvider = Provider((ref) {
 });
 
 final profileEditViewModelProvider =
-    StateNotifierProvider<ProfileEditViewModel, ProfileModel?>((ref) {
+    StateNotifierProvider<ProfileEditViewModel, ProfileEditState>((ref) {
   final editProfileUseCase = ref.watch(editProfileUseCaseProvider);
   final getMyProfileUseCase = ref.watch(getMyProfileUseCaseProvider);
-  return ProfileEditViewModel(editProfileUseCase, getMyProfileUseCase, ref);
+  return ProfileEditViewModel(editProfileUseCase, ref);
 });
 
 final getMyUserDataUseCaseProvider = Provider((ref) {
