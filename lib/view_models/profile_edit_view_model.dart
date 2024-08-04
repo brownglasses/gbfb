@@ -2,7 +2,7 @@ import 'package:gfbf/models/profile_model.dart';
 import 'package:gfbf/provider.dart';
 import 'package:gfbf/state/profile_edit_state.dart';
 import 'package:gfbf/usecase/edit_profile_use_case.dart';
-import 'package:gfbf/usecase/get_my_profile_use_case.dart';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:gfbf/utils/exception/app_exception.dart'; // 커스텀 예외 클래스를 가져옵니다
 import 'package:gfbf/utils/log.dart'; // 로깅 유틸리티를 가져옵니다
