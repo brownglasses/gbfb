@@ -40,6 +40,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 context.go('/profile_edit', extra: profile);
               },
               child: const Text('Edit Profile')),
+          ElevatedButton(
+              onPressed: () {
+                context.go('/da_splash');
+              },
+              child: const Text('DA Splash Screen')),
         ]),
       ),
     );

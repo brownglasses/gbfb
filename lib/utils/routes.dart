@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gfbf/models/profile_model.dart';
 import 'package:gfbf/provider.dart';
 import 'package:gfbf/notifier/user_notifier.dart';
+import 'package:gfbf/test_ui/screen/DASplashScreen.dart';
 
 import 'package:gfbf/views/home_screen.dart';
 import 'package:gfbf/views/profile_create_screen.dart';
@@ -43,6 +44,12 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/splashscreen',
         builder: (BuildContext context, GoRouterState state) {
           return const SplashScreen();
+        },
+      ),
+      GoRoute(
+        path: '/da_splash',
+        builder: (BuildContext context, GoRouterState state) {
+          return const DASplashScreen();
         },
       ),
       GoRoute(

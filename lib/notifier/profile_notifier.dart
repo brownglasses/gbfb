@@ -7,7 +7,7 @@ import 'package:gfbf/usecase/get_my_profile_use_case.dart';
 import 'package:gfbf/utils/exception/app_exception.dart'; // Custom exception classes
 import 'package:gfbf/utils/log.dart'; // Logging utility
 
-// 프로필 데이터를 관리하는 StateNotifier
+///프로필 데이터를 관리하는 StateNotifier
 class ProfileNotifier extends StateNotifier<ProfileModel?> {
   final GetMyProfileUseCase getMyProfileUseCase;
   final CreateProfileUseCase createProfileUseCase;

@@ -25,13 +25,23 @@ dependencies:
   logger: ^2.3.0
   riverpod: ^2.5.1
   riverpod_annotation: ^2.3.5
+  cupertino_icons: ^1.0.2
+  nb_utils: ^7.0.3
+  cached_network_image: ^3.1.0
+  photo_view: ^0.15.0
+  card_swiper: ^3.0.1
+  intl: ^0.19.0
+  url_launcher: ^6.0.3
+  dotted_border: ^2.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.0
+  flutter_lints: ^4.0.0
   build_runner: ^2.4.11
   json_serializable: ^6.8.0
 
 flutter:
   uses-material-design: true
+  assets:
+    - images/dating/
