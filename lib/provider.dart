@@ -115,7 +115,7 @@ final createProfileUseCaseProvider = Provider((ref) {
 final profileCreateViewModelProvider =
     StateNotifierProvider<ProfileCreateViewModel, ProfileCreateState>((ref) {
   final createProfileUseCase = ref.watch(createProfileUseCaseProvider);
-  final getMyProfileUseCase = ref.watch(getMyProfileUseCaseProvider);
+
   final userModel = ref.watch(userInfomerProvider).userModel;
 
   return ProfileCreateViewModel(createProfileUseCase, userModel, ref);
@@ -143,7 +143,7 @@ final editProfileUseCaseProvider = Provider((ref) {
 final profileEditViewModelProvider =
     StateNotifierProvider<ProfileEditViewModel, ProfileEditState>((ref) {
   final editProfileUseCase = ref.watch(editProfileUseCaseProvider);
-  final getMyProfileUseCase = ref.watch(getMyProfileUseCaseProvider);
+
   return ProfileEditViewModel(editProfileUseCase, ref);
 });
 
