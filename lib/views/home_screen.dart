@@ -45,6 +45,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 context.go('/da_splash');
               },
               child: const Text('DA Splash Screen')),
+          ElevatedButton(
+              onPressed: () {
+                context.go('/profile_card_list');
+              },
+              child: const Text('Profile Card List'))
         ]),
       ),
     );

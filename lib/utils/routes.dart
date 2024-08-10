@@ -5,6 +5,7 @@ import 'package:gfbf/notifier/user_notifier.dart';
 import 'package:gfbf/test_ui/screen/DASplashScreen.dart';
 
 import 'package:gfbf/views/home_screen.dart';
+import 'package:gfbf/views/profile_card_list_screen.dart';
 import 'package:gfbf/views/profile_create_screen.dart';
 import 'package:gfbf/views/profile_edit_screen.dart';
 import 'package:gfbf/views/profile_view_screen.dart';
@@ -85,6 +86,11 @@ final routerProvider = Provider<GoRouter>((ref) {
             return ProfileEditScreen(
               profileModel: extra,
             );
+          }),
+      GoRoute(
+          path: '/profile_card_list',
+          builder: (context, state) {
+            return const ProfileCardListScreen();
           }),
     ],
   );
