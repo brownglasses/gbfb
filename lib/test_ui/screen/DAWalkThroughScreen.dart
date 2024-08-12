@@ -99,7 +99,7 @@ class DAWalkThroughScreenState extends State<DAWalkThroughScreen> {
                   textStyle: primaryTextStyle(),
                   onTap: () {
                     finish(context);
-                    DAWelcomeScreen().launch(context);
+                    const DAWelcomeScreen().launch(context);
                   },
                 ).visible(currentPage != 2),
                 16.width,
@@ -111,7 +111,7 @@ class DAWalkThroughScreenState extends State<DAWalkThroughScreen> {
                   onTap: () {
                     if (currentPage == 2) {
                       finish(context);
-                      DAWelcomeScreen().launch(context);
+                      const DAWelcomeScreen().launch(context);
                     } else {
                       pageController.animateToPage(currentPage + 1,
                           duration: const Duration(milliseconds: 300),

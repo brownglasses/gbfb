@@ -56,7 +56,7 @@ class ProfileDetails extends StatelessWidget {
           Text('Height: ${profile.height}',
               style: const TextStyle(fontSize: 18)),
           const SizedBox(height: 8),
-          Text('About Me: ${profile.aboutMe}',
+          Text('About Me: ${profile.bio}',
               style: const TextStyle(fontSize: 18)),
           const SizedBox(height: 8),
           Text('Interests: ${profile.interests}',
@@ -73,9 +73,6 @@ class ProfileDetails extends StatelessWidget {
           const SizedBox(height: 8),
           Text('Likes: ${profile.likes}', style: const TextStyle(fontSize: 18)),
           const SizedBox(height: 8),
-          Text('One Word Description: ${profile.oneWordDescription}',
-              style: const TextStyle(fontSize: 18)),
-          const SizedBox(height: 16),
           profile.photoUrl != null && profile.photoUrl!.isNotEmpty
               ? Image.network(profile.photoUrl!)
               : const Text('No image available',

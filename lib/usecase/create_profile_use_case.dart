@@ -28,7 +28,6 @@ class CreateProfileUseCase {
       }
 
       Log.info('로그인된 사용자 UID: ${user.uid}');
-
       // 프로필 모델에 UID 설정
       profileModel = profileModel.copyWith(uid: user.uid);
 

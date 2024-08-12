@@ -9,6 +9,7 @@ class AppColors {
   // 시멘틱 컬러
   static const Color success = Color(0xFF2ECC71); // 밝은 녹색
   static const Color error = Color(0xFFE74C3C); // 밝은 빨강
+  static const Color disabled = Color(0xFFBDC3C7); // 연한 회색
   static const Color warning = Color(0xFFF1C40F); // 밝은 노란색
   static const Color info = Color(0xFF3498DB); // 청춘의 파랑색
 

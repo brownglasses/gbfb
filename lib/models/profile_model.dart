@@ -1,16 +1,15 @@
 class ProfileModel {
-  String uid;
-  String university;
-  int age;
-  int height;
+  String? uid;
+  String? university;
+  int? age;
+  int? height;
   String? photoUrl;
-  String aboutMe;
-  String interests;
-  bool smoking;
-  String religion;
-  String dislikes;
-  String likes;
-  String oneWordDescription;
+  String? bio;
+  String? interests;
+  bool smoking = false;
+  String? religion;
+  String? dislikes;
+  String? likes;
 
   ProfileModel({
     this.uid = '',
@@ -18,13 +17,12 @@ class ProfileModel {
     this.age = 20,
     this.height = 160,
     this.photoUrl = '',
-    this.aboutMe = '',
+    this.bio = '',
     this.interests = '',
     this.smoking = false,
     this.religion = '무교',
     this.dislikes = '',
     this.likes = '',
-    this.oneWordDescription = '',
   });
 
   ProfileModel copyWith({
@@ -33,13 +31,12 @@ class ProfileModel {
     int? age,
     int? height,
     String? photoUrl,
-    String? aboutMe,
+    String? bio,
     String? interests,
     bool? smoking,
     String? religion,
     String? dislikes,
     String? likes,
-    String? oneWordDescription,
   }) {
     return ProfileModel(
       uid: uid ?? this.uid,
@@ -47,13 +44,12 @@ class ProfileModel {
       age: age ?? this.age,
       height: height ?? this.height,
       photoUrl: photoUrl ?? this.photoUrl,
-      aboutMe: aboutMe ?? this.aboutMe,
+      bio: bio ?? this.bio,
       interests: interests ?? this.interests,
       smoking: smoking ?? this.smoking,
       religion: religion ?? this.religion,
       dislikes: dislikes ?? this.dislikes,
       likes: likes ?? this.likes,
-      oneWordDescription: oneWordDescription ?? this.oneWordDescription,
     );
   }
 
@@ -67,13 +63,12 @@ class ProfileModel {
         other.age == age &&
         other.height == height &&
         other.photoUrl == photoUrl &&
-        other.aboutMe == aboutMe &&
+        other.bio == bio &&
         other.interests == interests &&
         other.smoking == smoking &&
         other.religion == religion &&
         other.dislikes == dislikes &&
-        other.likes == likes &&
-        other.oneWordDescription == oneWordDescription;
+        other.likes == likes;
   }
 
   @override
@@ -83,13 +78,12 @@ class ProfileModel {
         age.hashCode ^
         height.hashCode ^
         photoUrl.hashCode ^
-        aboutMe.hashCode ^
+        bio.hashCode ^
         interests.hashCode ^
         smoking.hashCode ^
         religion.hashCode ^
         dislikes.hashCode ^
-        likes.hashCode ^
-        oneWordDescription.hashCode;
+        likes.hashCode;
   }
 
   Map<String, dynamic> toMap() {
@@ -99,13 +93,12 @@ class ProfileModel {
       'age': age,
       'height': height,
       'photoUrl': photoUrl,
-      'aboutMe': aboutMe,
+      'bio': bio,
       'interests': interests,
       'smoking': smoking,
       'religion': religion,
       'dislikes': dislikes,
       'likes': likes,
-      'oneWordDescription': oneWordDescription,
     };
   }
 
@@ -116,13 +109,12 @@ class ProfileModel {
       age: firestoreData['age'] ?? 20,
       height: firestoreData['height'] ?? 160,
       photoUrl: firestoreData['photoUrl'] ?? '',
-      aboutMe: firestoreData['aboutMe'] ?? '',
+      bio: firestoreData['bio'] ?? '',
       interests: firestoreData['interests'] ?? '',
       smoking: firestoreData['smoking'] ?? false,
       religion: firestoreData['religion'] ?? '무교',
       dislikes: firestoreData['dislikes'] ?? '',
       likes: firestoreData['likes'] ?? '',
-      oneWordDescription: firestoreData['oneWordDescription'] ?? '',
     );
   }
 }

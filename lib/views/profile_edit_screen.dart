@@ -21,8 +21,7 @@ class ProfileEditScreen extends HookConsumerWidget {
         useTextEditingController(text: profileModel.age.toString());
     final heightController =
         useTextEditingController(text: profileModel.height.toString());
-    final aboutMeController =
-        useTextEditingController(text: profileModel.aboutMe);
+    final bioController = useTextEditingController(text: profileModel.bio);
     final interestsController =
         useTextEditingController(text: profileModel.interests);
     final religionController =
@@ -30,8 +29,7 @@ class ProfileEditScreen extends HookConsumerWidget {
     final dislikesController =
         useTextEditingController(text: profileModel.dislikes);
     final likesController = useTextEditingController(text: profileModel.likes);
-    final oneWordDescriptionController =
-        useTextEditingController(text: profileModel.oneWordDescription);
+
     final smokingController = useState<bool>(false);
     final ImagePicker picker = ImagePicker();
     final filePath = useState(profileModel.photoUrl);
@@ -77,7 +75,7 @@ class ProfileEditScreen extends HookConsumerWidget {
                     keyboardType: TextInputType.number,
                   ),
                   TextField(
-                    controller: aboutMeController,
+                    controller: bioController,
                     decoration: const InputDecoration(labelText: 'About Me'),
                   ),
                   TextField(
@@ -95,11 +93,6 @@ class ProfileEditScreen extends HookConsumerWidget {
                   TextField(
                     controller: likesController,
                     decoration: const InputDecoration(labelText: 'Likes'),
-                  ),
-                  TextField(
-                    controller: oneWordDescriptionController,
-                    decoration: const InputDecoration(
-                        labelText: 'One Word Description'),
                   ),
                   SwitchListTile(
                     title: const Text('Smoking'),
@@ -129,13 +122,12 @@ class ProfileEditScreen extends HookConsumerWidget {
                         age: int.parse(ageController.text),
                         height: int.parse(heightController.text),
                         photoUrl: '',
-                        aboutMe: aboutMeController.text,
+                        bio: bioController.text,
                         interests: interestsController.text,
                         smoking: smokingController.value,
                         religion: religionController.text,
                         dislikes: dislikesController.text,
                         likes: likesController.text,
-                        oneWordDescription: oneWordDescriptionController.text,
                       );
                       await viewModel.editProfile(profileModel, filePath.value);
                       if (context.mounted) {

@@ -3,10 +3,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:gfbf/utils/log.dart'; // Log 클래스를 가져옵니다.
 import 'package:gfbf/utils/exception/app_exception.dart'; // 커스텀 예외 클래스를 가져옵니다.
 
-class UploadImageUseCase {
+class UploadStudentCardImageUseCase {
   final FirebaseStorage firebaseStorage;
 
-  UploadImageUseCase(this.firebaseStorage);
+  UploadStudentCardImageUseCase(this.firebaseStorage);
 
   Future<String> execute(String uid, File file) async {
     try {

@@ -19,7 +19,7 @@ class DASplashScreenState extends State<DASplashScreen> {
   Future<void> init() async {
     await Future.delayed(const Duration(seconds: 3));
     if (mounted) finish(context);
-    DAWalkThroughScreen().launch(context);
+    const DAWalkThroughScreen().launch(context);
   }
 
   @override

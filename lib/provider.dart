@@ -19,7 +19,7 @@ import 'package:gfbf/usecase/get_my_user_data_use_case.dart';
 import 'package:gfbf/usecase/get_university_verification_request_result_use_case.dart';
 import 'package:gfbf/usecase/request_university_verification_use_case.dart';
 import 'package:gfbf/usecase/sign_in_with_phone_number_use_case.dart';
-import 'package:gfbf/usecase/upload_image_use_case.dart';
+import 'package:gfbf/usecase/upload_student_card_image_use_case.dart';
 import 'package:gfbf/usecase/verify_phone_number_use_case.dart';
 import 'package:gfbf/notifier/user_notifier.dart';
 import 'package:gfbf/view_models/profile_create_view_model.dart';
@@ -85,7 +85,7 @@ final requestUniversityVerificationUseCaseProvider = Provider((ref) {
 
 final uploadImageUseCaseProvider = Provider((ref) {
   final firebaseStorage = ref.watch(firebaseStorageProvider);
-  return UploadImageUseCase(firebaseStorage);
+  return UploadStudentCardImageUseCase(firebaseStorage);
 });
 
 final getUniversityVerificationRequestResultUseCaseProvider = Provider((ref) {
