@@ -5,14 +5,14 @@ import 'package:gfbf/models/university_verification_request_model.dart';
 import 'package:gfbf/state/university_verification_state.dart';
 import 'package:gfbf/usecase/get_university_verification_request_result_use_case.dart';
 import 'package:gfbf/usecase/request_university_verification_use_case.dart';
-import 'package:gfbf/usecase/upload_image_use_case.dart';
+import 'package:gfbf/usecase/upload_student_card_image_use_case.dart';
 import 'package:gfbf/utils/exception/app_exception.dart'; // 커스텀 예외 클래스를 가져옵니다
 import 'package:gfbf/utils/log.dart'; // Log 클래스를 가져옵니다.
 
 class UniversityVerificationViewModel
     extends StateNotifier<UniversityVerificationState> {
   final RequestUniversityVerificationUseCase requestUseCase;
-  final UploadImageUseCase uploadImageUseCase;
+  final UploadStudentCardImageUseCase uploadImageUseCase;
   final GetUniversityVerificationRequestResultUseCase getRequestResultUseCase;
 
   UniversityVerificationViewModel(

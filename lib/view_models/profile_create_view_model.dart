@@ -11,11 +11,21 @@ import 'package:gfbf/utils/log.dart'; // 로깅 유틸리티를 가져옵니다
 
 class ProfileCreateViewModel extends StateNotifier<ProfileCreateState> {
   final CreateProfileUseCase createProfileUseCase;
-  final UserModel? userModel;
+  final UserModel?
+      userModel; //uid, age, gender, university 등의 정보를 얻어오기 위한 UserModel
   final Ref ref;
 
   ProfileCreateViewModel(this.createProfileUseCase, this.userModel, this.ref)
       : super(ProfileCreateState.create(userModel));
+
+  Future<void> saveImage(File? file) async {
+    Log.info('이미지 저장 시작 - 파일: $file');
+    try {
+      // 이미지 파일을 저장합니다.
+    } catch (e) {
+      Log.error('이미지 저장 오류: $e');
+    }
+  }
 
   Future<void> createProfile(ProfileModel profileModel, File? file) async {
     // 프로필 생성이 시작되었음을 알립니다.
@@ -51,3 +61,7 @@ class ProfileCreateViewModel extends StateNotifier<ProfileCreateState> {
     }
   }
 }
+
+/// 프로필 생성을 위해 임시적으로 프로필을 저장하는 Provider 입니다.
+final createUserProfileProvider =
+    StateProvider<ProfileModel>((ref) => ProfileModel());

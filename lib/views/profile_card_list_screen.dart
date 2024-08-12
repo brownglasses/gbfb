@@ -54,6 +54,12 @@ class _ProfileCardListScreenState extends ConsumerState<ProfileCardListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('프로필 카드 목록'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: GridView.builder(
         padding: const EdgeInsets.all(8.0),
