@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gfbf/provider.dart';
 import 'package:gfbf/test_ui/utils/DAWidgets.dart';
 import 'package:gfbf/utils/colors.dart';
@@ -80,13 +79,26 @@ class _ProfileSetPickImageState extends ConsumerState<ProfileSetPickImage> {
       finish(context);
 
       // 4. 프로필 페이지로 이동하는 확인 버튼이 있는 다이얼로그 띄우기
-      showConfirmDialogCustom(
+      showInDialog(
         context,
-        title: '프로필 페이지로 이동하시겠습니까?',
-        dialogType: DialogType.CONFIRMATION,
-        onAccept: (context) {
-          context.go('/profile'); // 프로필 페이지로 이동
-        },
+        builder: (context) => Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.check_circle, color: Colors.green, size: 60),
+            const SizedBox(height: 16),
+            const Text('프로필 페이지로 이동하시겠습니까?', style: TextStyle(fontSize: 18)),
+            const SizedBox(height: 16),
+            AppButton(
+              text: '확인',
+              onTap: () {
+                finish(context);
+                GoRouter.of(context).go('/profile_view');
+              },
+            ),
+          ],
+        ),
+        dialogAnimation: DialogAnimation.SCALE,
+        barrierDismissible: false,
       );
     }
 
