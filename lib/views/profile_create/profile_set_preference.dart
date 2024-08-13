@@ -101,7 +101,7 @@ class _ProfileSetPreferenceState extends ConsumerState<ProfileSetPreference> {
                         ),
                       );
                       context.go(
-                          '/profile_set_information/profile_set_introduce/profile_set_preference/profile_set_pick_image');
+                          '/profile_set_information/profile_set_mbti_body/profile_set_introduce/profile_set_preference/profile_set_pick_image');
                     },
                   ),
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:gfbf/provider.dart';
 import 'package:gfbf/utils/colors.dart';
 import 'package:gfbf/utils/widget.dart';
 import 'package:gfbf/view_models/profile_create_view_model.dart';
@@ -23,6 +24,11 @@ class _ProfileSetInformationState extends ConsumerState<ProfileSetInformation> {
         useState<String?>(null); // UseState to manage selected religion
     final smokingController = useState<bool>(false);
     final profileNotifer = ref.watch(createUserProfileProvider.notifier);
+    final userNotifer = ref.watch(userNotifierProvider);
+    final user = userNotifer.userModel;
+    if (user == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
 
     return SafeArea(
       child: GestureDetector(
@@ -133,13 +139,15 @@ class _ProfileSetInformationState extends ConsumerState<ProfileSetInformation> {
                     onTap: () {
                       profileNotifer.update(
                         (state) => state.copyWith(
+                          uid: user.uid,
+                          university: user.university,
                           height: heightController.text.toInt(),
                           religion: religionController.value,
                           smoking: smokingController.value,
                         ),
                       );
                       context
-                          .go('/profile_set_information/profile_set_introduce');
+                          .go('/profile_set_information/profile_set_mbti_body');
                     },
                   ),
                 ))

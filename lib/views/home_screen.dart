@@ -13,7 +13,7 @@ class HomeScreen extends StatefulHookConsumerWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(userInfomerProvider).userModel;
+    final user = ref.watch(userNotifierProvider).userModel;
     final profile = ref.watch(profileNotifierProvider);
     return Scaffold(
       appBar: AppBar(

@@ -81,6 +81,8 @@ class ProfileDetails extends StatelessWidget {
                   _buildProfileTag('# ${profile.height ?? '정보 없음'}cm'),
                   _buildProfileTag('# ${profile.smoking ? "흡연" : "비흡연"}'),
                   _buildProfileTag('# ${profile.religion ?? '정보 없음'}'),
+                  _buildProfileTag('# ${profile.mbti ?? '정보 없음'}'),
+                  _buildProfileTag('# ${profile.body ?? '정보 없음'}'),
                 ],
               ),
               12.height,

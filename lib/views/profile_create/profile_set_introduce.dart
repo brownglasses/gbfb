@@ -102,7 +102,7 @@ class _ProfileSetIntroduceState extends ConsumerState<ProfileSetIntroduce> {
                         ),
                       );
                       context.go(
-                          '/profile_set_information/profile_set_introduce/profile_set_preference');
+                          '/profile_set_information/profile_set_mbti_body/profile_set_introduce/profile_set_preference');
                     },
                   ),
                 ),

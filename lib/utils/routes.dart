@@ -8,6 +8,7 @@ import 'package:gfbf/views/home_screen.dart';
 import 'package:gfbf/views/profile_card_list_screen.dart';
 import 'package:gfbf/views/profile_create/profile_set_information.dart';
 import 'package:gfbf/views/profile_create/profile_set_introduce.dart';
+import 'package:gfbf/views/profile_create/profile_set_mbti_body.dart';
 import 'package:gfbf/views/profile_create/profile_set_pick_image.dart';
 import 'package:gfbf/views/profile_create/profile_set_preference.dart';
 import 'package:gfbf/views/profile_create_screen.dart';
@@ -22,7 +23,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
-  UserNotifier userInfomer = ref.watch(userInfomerProvider);
+  UserNotifier userInfomer = ref.watch(userNotifierProvider);
 
   return GoRouter(
     refreshListenable: userInfomer,
@@ -97,23 +98,32 @@ final routerProvider = Provider<GoRouter>((ref) {
                 builder: (context, state) => const ProfileSetInformation(),
                 routes: [
                   GoRoute(
-                      path: 'profile_set_introduce',
-                      builder: (context, state) => const ProfileSetIntroduce(),
-                      routes: [
-                        GoRoute(
-                          path: 'profile_set_preference',
-                          builder: (context, state) {
-                            return const ProfileSetPreference();
-                          },
+                    path: 'profile_set_mbti_body',
+                    builder: (context, state) {
+                      return const ProfileSetMbtiBody();
+                    },
+                    routes: [
+                      GoRoute(
+                          path: 'profile_set_introduce',
+                          builder: (context, state) =>
+                              const ProfileSetIntroduce(),
                           routes: [
                             GoRoute(
-                              path: 'profile_set_pick_image',
-                              builder: (context, state) =>
-                                  const ProfileSetPickImage(),
+                              path: 'profile_set_preference',
+                              builder: (context, state) {
+                                return const ProfileSetPreference();
+                              },
+                              routes: [
+                                GoRoute(
+                                  path: 'profile_set_pick_image',
+                                  builder: (context, state) =>
+                                      const ProfileSetPickImage(),
+                                )
+                              ],
                             )
-                          ],
-                        )
-                      ]),
+                          ]),
+                    ],
+                  ),
                 ]),
             GoRoute(
                 path: 'profile_card_list',
