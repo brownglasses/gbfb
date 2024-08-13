@@ -8,7 +8,7 @@ class SplashScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userNotifier = ref.watch(userInfomerProvider);
+    final userNotifier = ref.watch(userNotifierProvider);
     final profileNotifier = ref.watch(profileNotifierProvider.notifier);
     useEffect(() {
       Future.microtask(() async {

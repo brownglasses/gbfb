@@ -49,7 +49,7 @@ final firebaseFirestoreProvider = Provider<FirebaseFirestore>((ref) {
   return FirebaseFirestore.instance;
 });
 
-final userInfomerProvider = ChangeNotifierProvider<UserNotifier>((ref) {
+final userNotifierProvider = ChangeNotifierProvider<UserNotifier>((ref) {
   final userService = ref.watch(userServiceProvider);
   final firebaseAuth = ref.watch(firebaseAuthProvider);
   return UserNotifier(userService, firebaseAuth);
@@ -64,7 +64,7 @@ final signInWithPhoneNumberUseCaseProvider = Provider((ref) {
   final firebaseAuth = ref.watch(firebaseAuthProvider);
   final firebaseMessaging = ref.watch(firebaseMessagingProvider);
   final userService = ref.watch(userServiceProvider);
-  final userInfomer = ref.watch(userInfomerProvider);
+  final userInfomer = ref.watch(userNotifierProvider);
   return SignInWithPhoneNumberUseCase(
       firebaseAuth, firebaseMessaging, userService, userInfomer);
 });
@@ -116,7 +116,7 @@ final profileCreateViewModelProvider =
     StateNotifierProvider<ProfileCreateViewModel, ProfileCreateState>((ref) {
   final createProfileUseCase = ref.watch(createProfileUseCaseProvider);
 
-  final userModel = ref.watch(userInfomerProvider).userModel;
+  final userModel = ref.watch(userNotifierProvider).userModel;
 
   return ProfileCreateViewModel(createProfileUseCase, userModel, ref);
 });
@@ -148,7 +148,7 @@ final profileEditViewModelProvider =
 });
 
 final getMyUserDataUseCaseProvider = Provider((ref) {
-  UserNotifier userInfomer = ref.watch(userInfomerProvider);
+  UserNotifier userInfomer = ref.watch(userNotifierProvider);
   return GetMyUserDataUseCase(userInfomer);
 });
 
