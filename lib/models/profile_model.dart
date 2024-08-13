@@ -1,4 +1,6 @@
 class ProfileModel {
+  String? mbti;
+  String? body;
   String? uid;
   String? university;
   int? age;
@@ -12,6 +14,8 @@ class ProfileModel {
   String? likes;
 
   ProfileModel({
+    this.mbti = '',
+    this.body = '',
     this.uid = '',
     this.university = '',
     this.age = 20,
@@ -26,6 +30,8 @@ class ProfileModel {
   });
 
   ProfileModel copyWith({
+    String? mbti,
+    String? body,
     String? uid,
     String? university,
     int? age,
@@ -39,6 +45,8 @@ class ProfileModel {
     String? likes,
   }) {
     return ProfileModel(
+      mbti: mbti ?? this.mbti,
+      body: body ?? this.body,
       uid: uid ?? this.uid,
       university: university ?? this.university,
       age: age ?? this.age,
@@ -58,6 +66,8 @@ class ProfileModel {
     if (identical(this, other)) return true;
 
     return other is ProfileModel &&
+        other.mbti == mbti &&
+        other.body == body &&
         other.uid == uid &&
         other.university == university &&
         other.age == age &&
@@ -74,6 +84,8 @@ class ProfileModel {
   @override
   int get hashCode {
     return uid.hashCode ^
+        mbti.hashCode ^
+        body.hashCode ^
         university.hashCode ^
         age.hashCode ^
         height.hashCode ^
@@ -88,6 +100,8 @@ class ProfileModel {
 
   Map<String, dynamic> toMap() {
     return {
+      'mbti': mbti,
+      'body': body,
       'uid': uid,
       'university': university,
       'age': age,
@@ -104,6 +118,8 @@ class ProfileModel {
 
   factory ProfileModel.fromFirestore(Map<String, dynamic> firestoreData) {
     return ProfileModel(
+      mbti: firestoreData['mbti'] ?? '',
+      body: firestoreData['body'] ?? '',
       uid: firestoreData['uid'] ?? '',
       university: firestoreData['university'] ?? '',
       age: firestoreData['age'] ?? 20,
