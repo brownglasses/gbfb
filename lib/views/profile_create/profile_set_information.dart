@@ -22,7 +22,7 @@ class _ProfileSetInformationState extends ConsumerState<ProfileSetInformation> {
     final heightController = useTextEditingController();
     final religionController =
         useState<String?>(null); // UseState to manage selected religion
-    final smokingController = useState<bool>(false);
+    final smokingController = useState<bool?>(null);
     final profileNotifer = ref.watch(createUserProfileProvider.notifier);
     final userNotifer = ref.watch(userNotifierProvider);
     final user = userNotifer.userModel;
@@ -38,7 +38,6 @@ class _ProfileSetInformationState extends ConsumerState<ProfileSetInformation> {
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
-            title: const Text('프로필 생성'),
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
@@ -100,7 +99,7 @@ class _ProfileSetInformationState extends ConsumerState<ProfileSetInformation> {
                             text: '흡연',
                             textStyle: boldTextStyle(color: Colors.white),
                             width: context.width() * 0.4,
-                            color: smokingController.value
+                            color: smokingController.value == true
                                 ? AppColors.primary
                                 : AppColors.disabled,
                             onTap: () {
@@ -113,9 +112,9 @@ class _ProfileSetInformationState extends ConsumerState<ProfileSetInformation> {
                             text: '비흡연',
                             textStyle: boldTextStyle(color: Colors.white),
                             width: context.width() * 0.4,
-                            color: smokingController.value
-                                ? AppColors.disabled
-                                : AppColors.primary,
+                            color: smokingController.value == false
+                                ? AppColors.primary
+                                : AppColors.disabled,
                             onTap: () {
                               smokingController.value = false;
                             },
@@ -137,6 +136,14 @@ class _ProfileSetInformationState extends ConsumerState<ProfileSetInformation> {
                     width: context.width(),
                     color: AppColors.primary,
                     onTap: () {
+                      // Validation logic
+                      if (heightController.text.isEmpty ||
+                          religionController.value == null ||
+                          smokingController.value == null) {
+                        toast('모든 필드를 입력해 주세요.');
+                        return;
+                      }
+
                       profileNotifer.update(
                         (state) => state.copyWith(
                           uid: user.uid,
