@@ -4,12 +4,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gfbf/utils/colors.dart';
 import 'package:gfbf/utils/widget.dart';
 import 'package:gfbf/view_models/profile_create_view_model.dart';
-import 'package:gfbf/views/profile_create/profile_set_preference.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:gfbf/models/profile_model.dart';
-import 'package:gfbf/provider.dart';
 import 'package:go_router/go_router.dart';
 
 class ProfileSetIntroduce extends StatefulHookConsumerWidget {
@@ -26,6 +22,22 @@ class _ProfileSetIntroduceState extends ConsumerState<ProfileSetIntroduce> {
     final bioController = useTextEditingController();
     final interestController = useTextEditingController();
     final profileNotifer = ref.watch(createUserProfileProvider.notifier);
+    final isButtonEnabled = useState<bool>(false);
+
+    final bioLength = useState<int>(0);
+    final interestLength = useState<int>(0);
+
+    void validateForm() {
+      bioLength.value = bioController.text.length;
+      interestLength.value = interestController.text.length;
+
+      isButtonEnabled.value =
+          bioLength.value >= 20 && interestLength.value >= 10;
+    }
+
+    // Attach listeners to the text controllers to validate form input
+    bioController.addListener(validateForm);
+    interestController.addListener(validateForm);
 
     return SafeArea(
       child: GestureDetector(
@@ -33,9 +45,8 @@ class _ProfileSetIntroduceState extends ConsumerState<ProfileSetIntroduce> {
           FocusScope.of(context).requestFocus(FocusNode());
         },
         child: Scaffold(
-          resizeToAvoidBottomInset: false,
+          resizeToAvoidBottomInset: true,
           appBar: AppBar(
-            title: const Text('프로필 생성'),
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
@@ -67,7 +78,19 @@ class _ProfileSetIntroduceState extends ConsumerState<ProfileSetIntroduce> {
                         decoration:
                             buildInputDecoration(hintText: '짧게 자신을 소개해주세요'),
                         maxLines: 4,
-                      ).paddingBottom(16),
+                      ),
+                      4.height,
+                      if (bioLength.value > 0)
+                        Text(
+                          bioLength.value < 20
+                              ? '${20 - bioLength.value}글자 더 작성해주세요!'
+                              : '충분히 작성되었습니다.',
+                          style: secondaryTextStyle(
+                              color: bioLength.value < 20
+                                  ? Colors.red
+                                  : Colors.green),
+                        ),
+                      16.height,
                       const Text('관심사',
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       8.height,
@@ -77,7 +100,18 @@ class _ProfileSetIntroduceState extends ConsumerState<ProfileSetIntroduce> {
                         decoration:
                             buildInputDecoration(hintText: '자신의 관심사를 적어주세요'),
                         maxLines: 4,
-                      ).paddingBottom(16),
+                      ),
+                      4.height,
+                      if (interestLength.value > 0)
+                        Text(
+                          interestLength.value < 10
+                              ? '${10 - interestLength.value}글자 더 작성해주세요!'
+                              : '충분히 작성되었습니다.',
+                          style: secondaryTextStyle(
+                              color: interestLength.value < 10
+                                  ? Colors.red
+                                  : Colors.green),
+                        ),
                       16.height,
                     ],
                   ),
@@ -88,22 +122,27 @@ class _ProfileSetIntroduceState extends ConsumerState<ProfileSetIntroduce> {
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: AppButton(
+                    disabledColor: AppColors.primary,
                     width: context.width(),
                     text: '다음',
                     color: AppColors.primary,
                     textStyle: boldTextStyle(color: white),
                     shapeBorder: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)),
-                    onTap: () {
-                      profileNotifer.update(
-                        (state) => state.copyWith(
-                          bio: bioController.text,
-                          interests: interestController.text,
-                        ),
-                      );
-                      context.go(
-                          '/profile_set_information/profile_set_mbti_body/profile_set_introduce/profile_set_preference');
-                    },
+                    onTap: isButtonEnabled.value
+                        ? () {
+                            profileNotifer.update(
+                              (state) => state.copyWith(
+                                bio: bioController.text,
+                                interests: interestController.text,
+                              ),
+                            );
+                            context.go(
+                                '/profile_set_information/profile_set_mbti_body/profile_set_introduce/profile_set_preference');
+                          }
+                        : () {
+                            toast("자기소개와 관심사를 입력해주세요!");
+                          }, // Disable button action when form is incomplete
                   ),
                 ),
               ),

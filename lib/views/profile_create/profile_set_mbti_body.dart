@@ -26,9 +26,15 @@ class _ProfileSetMbtiBody extends ConsumerState<ProfileSetMbtiBody> {
       return const Center(child: CircularProgressIndicator());
     }
     // MBTI 컨트롤러
-    final mbtiController = useState<String>("ESTJ");
+    final mbtiController = useState<String>("0000");
     // 체형 컨트롤러
-    final bodyTypeController = useState<String>("마름");
+    final bodyTypeController = useState<String?>(null);
+    bool isFormComplete() {
+      print(mbtiController.value);
+      return !mbtiController.value.contains('0') &&
+          bodyTypeController.value != null &&
+          bodyTypeController.value!.isNotEmpty;
+    }
 
     return SafeArea(
       child: GestureDetector(
@@ -279,6 +285,10 @@ class _ProfileSetMbtiBody extends ConsumerState<ProfileSetMbtiBody> {
                     width: context.width(),
                     color: AppColors.primary,
                     onTap: () {
+                      if (!isFormComplete()) {
+                        toast('모든 필드를 입력해 주세요.');
+                        return;
+                      }
                       profileNotifer.update(
                         (state) => state.copyWith(
                           mbti: mbtiController.value, // MBTI 정보 추가
