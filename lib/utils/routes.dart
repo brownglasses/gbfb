@@ -13,6 +13,7 @@ import 'package:gfbf/views/profile_create/profile_set_pick_image.dart';
 import 'package:gfbf/views/profile_create/profile_set_preference.dart';
 import 'package:gfbf/views/profile_create_screen.dart';
 import 'package:gfbf/views/profile_edit_screen.dart';
+import 'package:gfbf/views/user_profile_screen.dart';
 import 'package:gfbf/views/profile_view_screen.dart';
 
 import 'package:gfbf/views/sign_up_screen.dart';
@@ -81,7 +82,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             //       );
             //     }),
             GoRoute(
-                path: 'profile_view',
+                path: 'my_profile_view',
                 builder: (BuildContext context, GoRouterState state) {
                   return const ProfileViewScreen();
                 }),
@@ -126,6 +127,16 @@ final routerProvider = Provider<GoRouter>((ref) {
                   ),
                 ]),
             GoRoute(
+                routes: [
+                  GoRoute(
+                      path: 'profile_view',
+                      builder: (context, state) {
+                        final extra = state.extra as ProfileModel;
+                        return UserProfileScreen(
+                          profile: extra,
+                        );
+                      }),
+                ],
                 path: 'profile_card_list',
                 builder: (context, state) {
                   return const ProfileCardListScreen();
