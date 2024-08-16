@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gfbf/components/profile_card_component.dart';
 import 'package:gfbf/models/profile_card_model.dart';
+import 'package:gfbf/models/profile_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ProfileCardListScreen extends StatefulHookConsumerWidget {
@@ -11,7 +13,7 @@ class ProfileCardListScreen extends StatefulHookConsumerWidget {
 }
 
 class _ProfileCardListScreenState extends ConsumerState<ProfileCardListScreen> {
-  List<ProfileCardModel> list = [];
+  List<ProfileModel> list = dummyProfiles;
 
   @override
   void initState() {
@@ -19,41 +21,12 @@ class _ProfileCardListScreenState extends ConsumerState<ProfileCardListScreen> {
     super.initState();
   }
 
-  Future<void> init() async {
-    list.add(ProfileCardModel(
-      uid: "1",
-      age: 25,
-      region: Region.Seoul,
-      university: University.SeoulNationalUniversity,
-      bodyType: BodyType.Fit,
-      height: 180,
-      imageUrl: null,
-    ));
-    list.add(ProfileCardModel(
-      uid: "2",
-      age: 22,
-      region: Region.Busan,
-      university: University.PusanNationalUniversity,
-      bodyType: BodyType.Slim,
-      height: 170,
-      imageUrl: 'https://via.placeholder.com/150',
-    ));
-    list.add(ProfileCardModel(
-      uid: "3",
-      age: 23,
-      region: Region.Daegu,
-      university: University.KyungpookNationalUniversity,
-      bodyType: BodyType.Average,
-      height: 175,
-      imageUrl: 'https://via.placeholder.com/150',
-    ));
-  }
+  Future<void> init() async {}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('프로필 카드 목록'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -78,72 +51,85 @@ class _ProfileCardListScreenState extends ConsumerState<ProfileCardListScreen> {
   }
 }
 
-class ProfileCard extends StatelessWidget {
-  final ProfileCardModel profile;
-
-  const ProfileCard({required this.profile, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 4.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.0),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: ClipRRect(
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(12.0),
-              ),
-              child: profile.imageUrl != null
-                  ? Image.network(
-                      profile.imageUrl!,
-                      width: double.infinity,
-                      height: double.infinity,
-                      fit: BoxFit.cover,
-                    )
-                  : const Icon(
-                      Icons.person,
-                      size: 100,
-                    ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Wrap(
-              spacing: 0.0, // 태그 사이의 간격
-              runSpacing: 0.0, // 줄 사이의 간격
-              children: [
-                _buildChip(profile.university.nameInKorean),
-                _buildChip('${profile.height}cm'),
-                _buildChip(profile.region.nameInKorean),
-                _buildChip('${profile.age}세'),
-                _buildChip(profile.bodyType.name),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildChip(String label) {
-    return Chip(
-      label: Text(label),
-      labelStyle: const TextStyle(
-        color: Colors.black,
-        fontSize: 10.0, // 폰트 크기 작게 설정
-      ),
-      backgroundColor: Colors.white,
-      visualDensity: VisualDensity.compact,
-      padding: const EdgeInsets.symmetric(
-          horizontal: 0, vertical: 0), // 패딩 조정하여 크기 축소
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-    );
-  }
-}
+List<ProfileModel> dummyProfiles = [
+  ProfileModel(
+    mbti: 'INTJ',
+    body: '보통',
+    uid: 'user001',
+    university: '서울대',
+    age: 24,
+    height: 175,
+    photoUrl:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMQQrXxvhV8M3YZmUMfNATySfpbBWEvdlnFQ&s',
+    bio: 'I love coding and hiking.',
+    interests: 'Technology, Hiking, Books',
+    smoking: false,
+    religion: '무교',
+    dislikes: 'Crowded places',
+    likes: 'Nature, Silence',
+  ),
+  ProfileModel(
+    mbti: 'ENFP',
+    body: '마름',
+    uid: 'user002',
+    university: '연세대',
+    age: 22,
+    height: 165,
+    photoUrl:
+        'https://cdnweb01.wikitree.co.kr/webdata/editor/202307/12/img_20230712165316_124ebfe1.webp',
+    bio: 'Adventurer and foodie.',
+    interests: 'Traveling, Cooking, Music',
+    smoking: false,
+    religion: '기독교',
+    dislikes: 'Boredom',
+    likes: 'Food, Friends',
+  ),
+  ProfileModel(
+    mbti: 'ISTP',
+    body: '보통',
+    uid: 'user003',
+    university: '고려대',
+    age: 26,
+    height: 180,
+    photoUrl:
+        'https://cdn2.ppomppu.co.kr/zboard/data3/2023/0628/m_20230628214939_Kmzz4Qmd81.jpeg',
+    bio: 'Gamer and tech enthusiast.',
+    interests: 'Gaming, Technology, DIY',
+    smoking: true,
+    religion: '불교',
+    dislikes: 'Rules',
+    likes: 'Freedom, Creativity',
+  ),
+  ProfileModel(
+    mbti: 'INFJ',
+    body: '근육질',
+    uid: 'user004',
+    university: '카이스트',
+    age: 21,
+    height: 170,
+    photoUrl:
+        'https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202307/05/SpoChosun/20230705104720016iosn.jpg',
+    bio: 'Passionate about psychology and art.',
+    interests: 'Art, Psychology, Meditation',
+    smoking: false,
+    religion: '무교',
+    dislikes: 'Noise',
+    likes: 'Peace, Reflection',
+  ),
+  ProfileModel(
+    mbti: 'ESTJ',
+    body: 'Muscular',
+    uid: 'user005',
+    university: '한양대',
+    age: 23,
+    height: 178,
+    photoUrl:
+        'https://mblogthumb-phinf.pstatic.net/MjAyMzA2MjZfMjY4/MDAxNjg3Nzc2NTg0MzAy._bJuP4gI5NWKVDcEzIbtcm-wEHUu3oMpibBIHTx_Ws8g.0hQMfVpx5J36L6LB8WtBr0VImvsfQ4i2cNzugAH0ebkg.JPEG.chois909/IMG_2374.JPG?type=w800',
+    bio: 'Leader and organizer.',
+    interests: 'Management, Fitness, Strategy games',
+    smoking: false,
+    religion: '천주교',
+    dislikes: 'Chaos',
+    likes: 'Order, Efficiency',
+  ),
+];
