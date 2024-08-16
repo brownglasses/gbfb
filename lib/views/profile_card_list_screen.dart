@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gfbf/components/profile_card_component.dart';
 import 'package:gfbf/models/profile_card_model.dart';
 import 'package:gfbf/models/profile_model.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ProfileCardListScreen extends StatefulHookConsumerWidget {
@@ -44,7 +45,12 @@ class _ProfileCardListScreenState extends ConsumerState<ProfileCardListScreen> {
         ),
         itemCount: list.length,
         itemBuilder: (context, index) {
-          return ProfileCard(profile: list[index]);
+          return ProfileCard(
+            profile: list[index],
+            onTap: () {
+              context.go('/profile_card_list/profile_view', extra: list[index]);
+            },
+          );
         },
       ),
     );
