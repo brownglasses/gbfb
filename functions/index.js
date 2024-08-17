@@ -1,19 +1,43 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
 
-const {onRequest} = require("firebase-functions/v2/https");
-const logger = require("firebase-functions/logger");
+admin.initializeApp();
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
+exports.getUserMatches = functions.https.onCall(async (data, context) => {
+    const userId = context.auth.uid;
 
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+    if (!userId) {
+        throw new functions.https.HttpsError("unauthenticated", "User must be authenticated");
+    }
+
+    const matchesSnapshot = await admin.firestore().collection("matches")
+        .where("toUserId", "==", userId)
+        .where("status", "==", "pending")
+        .get();
+
+    return matchesSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+    }));
+});
+
+exports.sendKakaoIds = functions.https.onCall(async (data, context) => {
+    const fromUserId = data.fromUserId;
+    const toUserId = data.toUserId;
+
+    const fromUserDoc = await admin.firestore().collection("users").doc(fromUserId).get();
+    const toUserDoc = await admin.firestore().collection("users").doc(toUserId).get();
+
+    const fromKakaoId = fromUserDoc.data().kakaoId;
+    const toKakaoId = toUserDoc.data().kakaoId;
+
+    await admin.firestore().collection("users").doc(fromUserId).update({
+        matchedKakaoId: toKakaoId,
+    });
+
+    await admin.firestore().collection("users").doc(toUserId).update({
+        matchedKakaoId: fromKakaoId,
+    });
+
+    return { success: true };
+});
