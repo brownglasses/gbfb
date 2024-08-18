@@ -1,20 +1,21 @@
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:gfbf/models/match_model.dart';
 import 'package:gfbf/utils/log.dart'; // Log 클래스를 가져옵니다.
 import 'package:gfbf/utils/exception/app_exception.dart'; // 커스텀 예외 클래스를 가져옵니다.
 
-class FetchPendingMatchesUseCase {
+class FetchSentMatchesUseCase {
   final FirebaseFunctions functions;
 
-  FetchPendingMatchesUseCase(this.functions);
+  FetchSentMatchesUseCase(this.functions);
 
-  Future<List> execute() async {
+  Future<List<MatchModel>> execute() async {
     try {
-      Log.info("펜딩된 매칭 목록 가져오기 시작");
+      Log.info("보낸 매칭 목록 가져오기 시작");
 
-      final result = await functions.httpsCallable('getUserMatches').call();
-      final List matches = result.data;
+      final result = await functions.httpsCallable('getSentMatches').call();
+      final List<MatchModel> matches = MatchModel.fromList(result.data);
 
-      Log.info("펜딩된 매칭 목록 가져오기 성공 - 결과: ${matches.length}건");
+      Log.info("보낸 매칭 목록 가져오기 성공 - 결과: ${matches.length}건");
 
       return matches;
     } on FirebaseFunctionsException catch (e) {
