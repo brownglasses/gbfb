@@ -54,7 +54,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               onPressed: () {
                 context.go('/profile_set_information');
               },
-              child: const Text('profile_set_information'))
+              child: const Text('profile_set_information')),
+          ElevatedButton(
+              onPressed: () {
+                context.go('/matching');
+              },
+              child: const Text('Matching Screen'))
         ]),
       ),
     );

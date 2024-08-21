@@ -21,6 +21,7 @@ import 'package:gfbf/usecase/get_my_profile_use_case.dart';
 import 'package:gfbf/usecase/get_my_user_data_use_case.dart';
 import 'package:gfbf/usecase/get_university_verification_request_result_use_case.dart';
 import 'package:gfbf/usecase/request_university_verification_use_case.dart';
+import 'package:gfbf/usecase/send_match_requset_use_case.dart';
 import 'package:gfbf/usecase/sign_in_with_phone_number_use_case.dart';
 import 'package:gfbf/usecase/upload_student_card_image_use_case.dart';
 import 'package:gfbf/usecase/verify_phone_number_use_case.dart';
@@ -171,4 +172,9 @@ final fetchPendingMatchesUseCaseProvider = Provider((ref) {
 final fetchSentMatchesUseCaseProvider = Provider((ref) {
   final firebaseFunctions = FirebaseFunctions.instance;
   return FetchSentMatchesUseCase(firebaseFunctions);
+});
+
+final sendMatchRequestUseCaseProvider = Provider((ref) {
+  final firebaseFirestore = FirebaseFirestore.instance;
+  return SendMatchRequestUseCase(firebaseFirestore);
 });
