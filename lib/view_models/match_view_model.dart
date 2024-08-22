@@ -2,6 +2,8 @@ import 'package:gfbf/models/match_model.dart';
 import 'package:gfbf/provider.dart';
 import 'package:gfbf/state/match_list_state.dart';
 import 'package:gfbf/usecase/fetch_received_matches_use_case.dart';
+import 'package:gfbf/usecase/fetch_received_matches_use_case.dart';
+import 'package:gfbf/usecase/fetch_sent_matches_use_case.dart';
 import 'package:gfbf/usecase/fetch_sent_matches_use_case.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:gfbf/utils/exception/app_exception.dart'; // 커스텀 예외 클래스를 가져옵니다
@@ -20,9 +22,15 @@ class MatchListViewModel extends StateNotifier<MatchListState> {
     Log.info("매칭 목록 가져오기 시작");
 
     try {
+      var user = ref.read(userNotifierProvider).userModel;
+      if (user == null) {
+        state = const MatchListState.error('로그인이 필요합니다');
+        return;
+      }
       // 매칭 목록 Use Case 실행
-      final receivedMatches = await fetchReceivedMatchesUseCase.execute();
-      final sentMatches = await fetchSentMatchesUseCase.execute();
+      final receivedMatches =
+          await fetchReceivedMatchesUseCase.execute(user.uid);
+      final sentMatches = await fetchSentMatchesUseCase.execute(user.uid);
       // 상태 업데이트
       ref.read(receivedMatchListProvider.notifier).state = receivedMatches;
       ref.read(sentMatchListProvider.notifier).state = sentMatches;
@@ -54,7 +62,7 @@ class MatchListViewModel extends StateNotifier<MatchListState> {
 final matchListNotifierProvider =
     StateNotifierProvider<MatchListViewModel, MatchListState>(
   (ref) => MatchListViewModel(
-    ref.read(fetchPendingMatchesUseCaseProvider),
+    ref.read(fetchReceivedMatchesUseCaseProvider),
     ref.read(fetchSentMatchesUseCaseProvider),
     ref,
   ),

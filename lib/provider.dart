@@ -16,6 +16,8 @@ import 'package:gfbf/state/university_verification_state.dart';
 import 'package:gfbf/usecase/create_profile_use_case.dart';
 import 'package:gfbf/usecase/edit_profile_use_case.dart';
 import 'package:gfbf/usecase/fetch_received_matches_use_case.dart';
+import 'package:gfbf/usecase/fetch_received_matches_use_case.dart';
+import 'package:gfbf/usecase/fetch_sent_matches_use_case.dart';
 import 'package:gfbf/usecase/fetch_sent_matches_use_case.dart';
 import 'package:gfbf/usecase/get_my_profile_use_case.dart';
 import 'package:gfbf/usecase/get_my_user_data_use_case.dart';
@@ -164,17 +166,17 @@ final profileNotifierProvider =
   return ProfileNotifier(getMyProfileUseCase, createProfileUseCase);
 });
 
-final fetchPendingMatchesUseCaseProvider = Provider((ref) {
-  final firebaseFunctions = FirebaseFunctions.instance;
-  return FetchReceivedMatchesUseCase(firebaseFunctions);
-});
-
-final fetchSentMatchesUseCaseProvider = Provider((ref) {
-  final firebaseFunctions = FirebaseFunctions.instance;
-  return FetchSentMatchesUseCase(firebaseFunctions);
-});
-
 final sendMatchRequestUseCaseProvider = Provider((ref) {
   final firebaseFirestore = FirebaseFirestore.instance;
   return SendMatchRequestUseCase(firebaseFirestore);
+});
+
+final fetchReceivedMatchesUseCaseProvider = Provider((ref) {
+  final firebaseFirestore = ref.watch(firebaseFirestoreProvider);
+  return FetchReceivedMatchesUseCase(firebaseFirestore);
+});
+
+final fetchSentMatchesUseCaseProvider = Provider((ref) {
+  final firebaseFirestore = ref.watch(firebaseFirestoreProvider);
+  return FetchSentMatchesUseCase(firebaseFirestore);
 });

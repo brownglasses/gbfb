@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gfbf/utils/colors.dart';
-import 'package:gfbf/utils/widget.dart';
+import 'package:gfbf/utils/widgets.dart';
 import 'package:gfbf/view_models/profile_create_view_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nb_utils/nb_utils.dart';
