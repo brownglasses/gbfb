@@ -1,34 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:gfbf/provider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:gfbf/models/profile_model.dart';
 import 'package:gfbf/test_ui/utils/DAWidgets.dart';
 import 'package:gfbf/utils/colors.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:gfbf/test_ui/utils/DAColors.dart';
 
-class UserProfileScreen extends StatefulWidget {
+class UserProfileScreen extends HookConsumerWidget {
   const UserProfileScreen({super.key, required this.profile});
   final ProfileModel profile;
 
   @override
-  UserProfileScreenState createState() => UserProfileScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.read(userNotifierProvider).userModel;
+    // This hook initializes on first build
+    useEffect(() {
+      // You can perform initialization or async operations here
+      return null; // Return a function to clean up if needed
+    }, const []);
 
-class UserProfileScreenState extends State<UserProfileScreen> {
-  @override
-  void initState() {
-    super.initState();
-    init();
-  }
-
-  Future<void> init() async {}
-
-  @override
-  void setState(fn) {
-    if (mounted) super.setState(fn);
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.background,
@@ -46,52 +38,51 @@ class UserProfileScreenState extends State<UserProfileScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildProfileHeader(),
+            Column(
+              children: [
+                16.height,
+                commonCachedNetworkImage(
+                  profile.photoUrl,
+                  fit: BoxFit.cover,
+                  height: 150,
+                  width: 150,
+                ).cornerRadiusWithClipRRect(20),
+                16.height,
+                AppButton(
+                  shapeBorder: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  elevation: 0,
+                  width: context.width(),
+                  color: AppColors.primary,
+                  onTap: () {
+                    ref
+                        .read(sendMatchRequestUseCaseProvider)
+                        .execute(user!.uid, profile.uid!);
+                    //TODO : if user.uid == null && profile.uid == null, then show Error Dialog
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Icon(Icons.telegram, color: white),
+                      Text('매칭 신청하기',
+                          style: boldTextStyle(color: white),
+                          textAlign: TextAlign.center),
+                      const SizedBox(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
             16.height,
-            ProfileInfoHorizontalScroll(profile: widget.profile),
+            ProfileInfoHorizontalScroll(profile: profile),
             16.height,
-            buildProfileSection('저는 이런 사람이에요!', widget.profile.bio),
-            buildProfileSection('이런 사람 만나고 싶어요', widget.profile.likes),
-            buildProfileSection('이런 사람은 싫어요', widget.profile.dislikes),
+            buildProfileSection('저는 이런 사람이에요!', profile.bio),
+            buildProfileSection('이런 사람 만나고 싶어요', profile.likes),
+            buildProfileSection('이런 사람은 싫어요', profile.dislikes),
           ],
         ).paddingAll(16),
       ),
-    );
-  }
-
-  Widget buildProfileHeader() {
-    return Column(
-      children: [
-        16.height,
-        commonCachedNetworkImage(
-          widget.profile.photoUrl,
-          fit: BoxFit.cover,
-          height: 150,
-          width: 150,
-        ).cornerRadiusWithClipRRect(20),
-        16.height,
-        AppButton(
-          shapeBorder: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-          elevation: 0,
-          width: context.width(),
-          color: AppColors.primary,
-          onTap: () {
-            // 매칭 신청
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Icon(Icons.telegram, color: white),
-              Text('매칭 신청하기',
-                  style: boldTextStyle(color: white),
-                  textAlign: TextAlign.center),
-              const SizedBox(),
-            ],
-          ),
-        ),
-      ],
     );
   }
 

@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gfbf/notifier/user_notifier.dart';
 import 'package:gfbf/provider.dart';
 import 'package:gfbf/utils/colors.dart';
-import 'package:gfbf/utils/widget.dart';
+import 'package:gfbf/utils/widgets.dart';
 import 'package:gfbf/view_models/profile_create_view_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

@@ -5,6 +5,7 @@ import 'package:gfbf/notifier/user_notifier.dart';
 import 'package:gfbf/test_ui/screen/DASplashScreen.dart';
 
 import 'package:gfbf/views/home_screen.dart';
+import 'package:gfbf/views/matching_screen.dart';
 import 'package:gfbf/views/profile_card_list_screen.dart';
 import 'package:gfbf/views/profile_create/profile_set_information.dart';
 import 'package:gfbf/views/profile_create/profile_set_introduce.dart';
@@ -142,6 +143,12 @@ final routerProvider = Provider<GoRouter>((ref) {
                   return const ProfileCardListScreen();
                 }),
           ]),
+      GoRoute(
+        path: '/matching',
+        builder: (context, state) {
+          return const MatchingScreen();
+        },
+      )
     ],
   );
 });

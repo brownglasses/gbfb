@@ -4,7 +4,7 @@ import 'package:gfbf/models/profile_model.dart';
 import 'package:gfbf/provider.dart';
 
 import 'package:gfbf/utils/colors.dart';
-import 'package:gfbf/utils/widget.dart';
+import 'package:gfbf/utils/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nb_utils/nb_utils.dart';

@@ -3,7 +3,7 @@ const admin = require("firebase-admin");
 
 admin.initializeApp();
 
-exports.getUserMatches = functions.https.onCall(async (data, context) => {
+exports.getReceivedMatches = functions.https.onCall(async (data, context) => {
     const userId = context.auth.uid;
 
     if (!userId) {
@@ -12,7 +12,6 @@ exports.getUserMatches = functions.https.onCall(async (data, context) => {
 
     const matchesSnapshot = await admin.firestore().collection("matches")
         .where("toUserId", "==", userId)
-        .where("status", "==", "pending")
         .get();
 
     return matchesSnapshot.docs.map((doc) => ({
@@ -20,6 +19,7 @@ exports.getUserMatches = functions.https.onCall(async (data, context) => {
         ...doc.data(),
     }));
 });
+
 
 exports.sendKakaoIds = functions.https.onCall(async (data, context) => {
     const fromUserId = data.fromUserId;
@@ -40,4 +40,21 @@ exports.sendKakaoIds = functions.https.onCall(async (data, context) => {
     });
 
     return { success: true };
+});
+
+exports.getSentMatches = functions.https.onCall(async (data, context) => {
+    const userId = context.auth.uid;
+
+    if (!userId) {
+        throw new functions.https.HttpsError("unauthenticated", "User must be authenticated");
+    }
+
+    const sentMatchesSnapshot = await admin.firestore().collection("matches")
+        .where("fromUserId", "==", userId)
+        .get();
+
+    return sentMatchesSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+    }));
 });

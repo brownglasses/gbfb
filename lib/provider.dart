@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,10 +15,15 @@ import 'package:gfbf/state/profile_view_state.dart';
 import 'package:gfbf/state/university_verification_state.dart';
 import 'package:gfbf/usecase/create_profile_use_case.dart';
 import 'package:gfbf/usecase/edit_profile_use_case.dart';
+import 'package:gfbf/usecase/fetch_received_matches_use_case.dart';
+import 'package:gfbf/usecase/fetch_received_matches_use_case.dart';
+import 'package:gfbf/usecase/fetch_sent_matches_use_case.dart';
+import 'package:gfbf/usecase/fetch_sent_matches_use_case.dart';
 import 'package:gfbf/usecase/get_my_profile_use_case.dart';
 import 'package:gfbf/usecase/get_my_user_data_use_case.dart';
 import 'package:gfbf/usecase/get_university_verification_request_result_use_case.dart';
 import 'package:gfbf/usecase/request_university_verification_use_case.dart';
+import 'package:gfbf/usecase/send_match_requset_use_case.dart';
 import 'package:gfbf/usecase/sign_in_with_phone_number_use_case.dart';
 import 'package:gfbf/usecase/upload_student_card_image_use_case.dart';
 import 'package:gfbf/usecase/verify_phone_number_use_case.dart';
@@ -158,4 +164,19 @@ final profileNotifierProvider =
   final createProfileUseCase = ref.watch(createProfileUseCaseProvider);
 
   return ProfileNotifier(getMyProfileUseCase, createProfileUseCase);
+});
+
+final sendMatchRequestUseCaseProvider = Provider((ref) {
+  final firebaseFirestore = FirebaseFirestore.instance;
+  return SendMatchRequestUseCase(firebaseFirestore);
+});
+
+final fetchReceivedMatchesUseCaseProvider = Provider((ref) {
+  final firebaseFirestore = ref.watch(firebaseFirestoreProvider);
+  return FetchReceivedMatchesUseCase(firebaseFirestore);
+});
+
+final fetchSentMatchesUseCaseProvider = Provider((ref) {
+  final firebaseFirestore = ref.watch(firebaseFirestoreProvider);
+  return FetchSentMatchesUseCase(firebaseFirestore);
 });
